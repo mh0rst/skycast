@@ -1,0 +1,6 @@
+*.jks
+*.apk
+/.project
+/.classpath
+/bin
+/gen
