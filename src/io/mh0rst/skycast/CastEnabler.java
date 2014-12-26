@@ -13,24 +13,12 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam;
  */
 public class CastEnabler implements IXposedHookLoadPackage {
 
-    private static class DoNothing extends XC_MethodReplacement {
-
-        public DoNothing() {
-            // do nothing
-        }
-
-        @Override
-        protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
-            return null;
-        }
-
-    }
-
     @Override
     public void handleLoadPackage(LoadPackageParam lpparam) throws Throwable {
         if (!lpparam.packageName.equals("de.sky.bw")) {
             return;
         }
-        XposedHelpers.findAndHookMethod("android.media.MediaRouter", lpparam.classLoader, "getSelectedRoute", int.class, new DoNothing());
+        XposedHelpers.findAndHookMethod("android.media.MediaRouter", lpparam.classLoader, "getSelectedRoute", int.class,
+                XC_MethodReplacement.DO_NOTHING);
     }
 }
